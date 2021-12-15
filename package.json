@@ -1,0 +1,23 @@
+{
+  "name": "@flurrux/simple-scalar-field-renderer",
+  "version": "1.0.0",
+  "description": "visualizing scalar fields with canvas2d",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel ./dev/index.html"
+  },
+  "author": "Christian Hoffmann <christianhoffmann@outlook.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@flurrux/simple-ctx-3d-engine": "^1.0.2",
+    "fp-ts": "^2.10.4"
+  },
+  "files": [
+    "/src"
+  ],
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "parcel": "^2.0.1",
+    "typescript": "^3.9.9"
+  }
+}
