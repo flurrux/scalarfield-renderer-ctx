@@ -1,7 +1,8 @@
-import { Vector2, Vector3 } from '../lib/types';
+import { Morphism, Transformation, Vector2, Vector3 } from '../lib/types';
 import { GridField, ScalarField } from './grid-field';
 import { setupSimpleCtx3dScene, RenderFuncArgs } from '@flurrux/simple-ctx-3d-engine/src/scene-setup';
 import { renderHeightMap, Shape } from './rendering/heightmap';
+import { OrbitCamera } from '@flurrux/simple-ctx-3d-engine/src/camera/orbit-camera';
 
 
 
@@ -15,7 +16,9 @@ export type HeightMapSceneArgs = {
 };
 
 export type HeightMapScene = {
-	updateHeightMap: (newHeightMap: ScalarField) => void
+	updateHeightMap: (newHeightMap: ScalarField) => void,
+	requestRender: Morphism<void, void>,
+	transformCamera: Morphism<Transformation<OrbitCamera>, void>
 };
 
 
@@ -63,5 +66,9 @@ export function setupHeightMapScene(args: HeightMapSceneArgs): HeightMapScene {
 		}
 	});
 
-	return { updateHeightMap };
+	return { 
+		updateHeightMap, 
+		requestRender: sceneController.performRender,
+		transformCamera: sceneController.transformCamera
+	};
 }
