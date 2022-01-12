@@ -1,4 +1,3 @@
-import { drawDisc } from "../../lib/ctx-util";
 import { Morphism, Vector2, Vector3 } from "../../lib/types";
 import { interpolate, magnitude } from "../../lib/vec3";
 import { GridField, gridToWorldCoordinate, ScalarField } from "../grid-field";

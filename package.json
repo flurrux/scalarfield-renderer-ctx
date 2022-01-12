@@ -1,6 +1,6 @@
 {
   "name": "@flurrux/simple-scalar-field-renderer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "visualizing scalar fields with canvas2d",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,7 @@
     "fp-ts": "^2.10.4"
   },
   "files": [
-    "/src"
+    "/src", "/lib"
   ],
   "devDependencies": {
     "cssnano": "^4.1.10",
