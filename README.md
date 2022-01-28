@@ -27,10 +27,10 @@ const sceneController = setupHeightMapScene({
 
 ```
 type HeightMapScene = {
-	updateHeightMap: (newHeightMap: ScalarField) => void,
-	updateColorField: (newColorField: ColorField) => void,
-	requestRender: Morphism<void, void>,
-	transformCamera: Morphism<Transformation<OrbitCamera>, void>
+  updateHeightMap: (newHeightMap: ScalarField) => void,
+  updateColorField: (newColorField: ColorField) => void,
+  requestRender: Morphism<void, void>,
+  transformCamera: Morphism<Transformation<OrbitCamera>, void>
 }
 ```
 
@@ -44,12 +44,12 @@ type HeightMapScene = {
 import { startLoop } from "@flurrux/simple-scalar-field-renderer/src/util";
 
 startLoop(
-	(args) => {
-		const f = 2;
-		sceneController.updateHeightMap(
-			([x, y]) => Math.sin(x * f) * Math.sin(y * f) * 0.35 * Math.sin(args.t)
-		);
-	}
+  (args) => {
+    const f = 2;
+    sceneController.updateHeightMap(
+      ([x, y]) => Math.sin(x * f) * Math.sin(y * f) * 0.35 * Math.sin(args.t)
+    );
+  }
 );
 
 ```
