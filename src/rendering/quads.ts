@@ -17,7 +17,7 @@ export function renderHeightmapQuad(
 	ctx: CanvasRenderingContext2D, 
 	worldToScreen: Morphism<Vector3, Vector2>,
 	quadSize: number, scalarField: ScalarField,
-	point: Vector2, color: Vector3) {
+	point: Vector2, color: string) {
 
 	const globalCorners = localCorners.map(
 		(localCorner: Vector2) => {
@@ -27,7 +27,7 @@ export function renderHeightmapQuad(
 		}
 	);
 	const verts = globalCorners.map(worldToScreen);
-	ctx.fillStyle = vec3ToColor(color);
+	ctx.fillStyle = color;
 	for (const tri of triangles) {
 		const triVerts = tri.map(i => verts[i]);
 		pathPolygon(ctx, triVerts);

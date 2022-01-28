@@ -3,7 +3,25 @@ import { GridField, ScalarField } from './grid-field';
 import { setupSimpleCtx3dScene, RenderFuncArgs } from '@flurrux/simple-ctx-3d-engine/src/scene-setup';
 import { renderHeightMap, Shape } from './rendering/heightmap';
 import { OrbitCamera } from '@flurrux/simple-ctx-3d-engine/src/camera/orbit-camera';
+import { normalize, vec3ToColor } from './util';
+import { interpolate } from '../lib/vec3';
 
+
+type ColorField = (p: Vector3) => string;
+
+const defaultColorField = (function(){
+	//negative values are bluish, positive ones are reddish
+	const negativeColor: Vector3 = [100, 173, 232];
+	const positiveColor: Vector3 = [232, 83, 42];
+
+	return (point: Vector3): string => vec3ToColor(
+		interpolate(
+			negativeColor,
+			positiveColor,
+			normalize(-1, +1, point[1])
+		)
+	);
+})();
 
 
 export type HeightMapSceneArgs = {
@@ -12,11 +30,14 @@ export type HeightMapSceneArgs = {
 	gridField: GridField,
 	//this is a continuous heightMap that is used to evaluate the heights of the grid-cells
 	heightMap: ScalarField,
-	shape: Shape
+	shape: Shape,
+
+	colorField?: ColorField
 };
 
 export type HeightMapScene = {
 	updateHeightMap: (newHeightMap: ScalarField) => void,
+	updateColorField: (newColorField: ColorField) => void,
 	requestRender: Morphism<void, void>,
 	transformCamera: Morphism<Transformation<OrbitCamera>, void>
 };
@@ -25,14 +46,15 @@ export type HeightMapScene = {
 export function setupHeightMapScene(args: HeightMapSceneArgs): HeightMapScene {
 	const gridField = args.gridField;
 	let heightMap = args.heightMap;
+	let colorField = args.colorField || defaultColorField;
 
-	//negative values are bluish, positive ones are reddish
-	const negativeColor: Vector3 = [100, 173, 232];
-	const positiveColor: Vector3 = [232, 83, 42];
-
-	
 	const updateHeightMap = (newHeightMap: ScalarField) => {
 		heightMap = newHeightMap;
+		sceneController.performRender();
+	};
+
+	const updateColorField = (newColorField: ColorField) => {
+		colorField = newColorField;
 		sceneController.performRender();
 	};
 
@@ -58,16 +80,17 @@ export function setupHeightMapScene(args: HeightMapSceneArgs): HeightMapScene {
 				worldToCam: renderArgs.worldToCam,
 				worldToScreen: renderArgs.worldToCanvas,
 				camPosition: renderArgs.camera.transform.position,
-				positiveColor, negativeColor, 
 				shape: args.shape,
 				gridField: gridField,
-				scalarField: heightMap
+				scalarField: heightMap,
+				colorField
 			});
 		}
 	});
 
 	return { 
 		updateHeightMap, 
+		updateColorField,
 		requestRender: sceneController.performRender,
 		transformCamera: sceneController.transformCamera
 	};

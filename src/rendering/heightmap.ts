@@ -1,8 +1,8 @@
+import { drawDisc } from "../../lib/ctx-util";
 import { Morphism, Vector2, Vector3 } from "../../lib/types";
-import { interpolate, magnitude } from "../../lib/vec3";
-import { GridField, gridToWorldCoordinate, ScalarField } from "../grid-field";
+import { magnitude } from "../../lib/vec3";
+import { GridField, ScalarField } from "../grid-field";
 import { calculateScalarFieldOrder } from "../scalar-value-order";
-import { normalize, vec3ToColor } from "../util";
 import { renderHeightmapQuad } from "./quads";
 
 export type Shape = "triangle" | "cube" | "sphere";
@@ -14,20 +14,17 @@ type HeightMapRenderArgs = {
 	worldToCam: Morphism<Vector3, Vector3>,
 	camToScreen: Morphism<Vector3, Vector2>,
 	worldToScreen: Morphism<Vector3, Vector2>
-	negativeColor: Vector3, positiveColor: Vector3, 
 	shape: Shape,
-	gridField: GridField, scalarField: ScalarField
+	gridField: GridField, 
+	scalarField: ScalarField, 
+	colorField: Morphism<Vector3, string>
 };
 
 const renderAtPoint = (args: HeightMapRenderArgs) => (point: Vector2) => {
-	const { ctx, gridField, shape, negativeColor, positiveColor, worldToCam, camToScreen } = args;
+	const { ctx, gridField, shape, colorField, worldToCam, camToScreen } = args;
 	const cellSize = gridField.cellSize / 2;
 	const y = args.scalarField(point);
-	const color = interpolate(
-		negativeColor, 
-		positiveColor, 
-		normalize(-1, +1, y)
-	);
+	const color = colorField([point[0], y, point[1]]);
 
 	if (shape === "cube") {
 		// const cubeY = y;
@@ -44,7 +41,7 @@ const renderAtPoint = (args: HeightMapRenderArgs) => (point: Vector2) => {
 		const screenPosition = camToScreen(camPosition);
 		const radius = 30 / dist;
 		drawDisc(ctx, screenPosition, radius + 3, { fillStyle: "black" });
-		drawDisc(ctx, screenPosition, radius, { fillStyle: vec3ToColor(color) });
+		drawDisc(ctx, screenPosition, radius, { fillStyle: color });
 	}
 	else if (shape === "triangle") {
 		//without the offset, the center of the quad would be exactly on the center of a grid point.
