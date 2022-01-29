@@ -1,4 +1,3 @@
-import { Vector2, Vector3 } from "./types";
 
 type Vec3 = [number, number, number];
 
@@ -10,7 +9,7 @@ export const add = (a: Vec3, b: Vec3): Vec3 => [
     a[2] + b[2]
 ];
 export function sum(vectors: Vec3[]): Vec3 {
-	let sum: Vector3 = [0, 0, 0];
+	let sum: Vec3 = [0, 0, 0];
 	for (const vec of vectors){
 		sum[0] += vec[0];
 		sum[1] += vec[1];
@@ -38,8 +37,8 @@ export const cross = (a: Vec3, b: Vec3): Vec3 => [
     a[2] * b[0] - b[2] * a[0],
     a[0] * b[1] - b[0] * a[1]
 ];
-export const project = (normal: Vector3, point: Vector3): Vector3 => {
+export const project = (normal: Vec3, point: Vec3): Vec3 => {
 	return multiply(normal, dot(normal, point));
 };
 export const interpolate = (a: Vec3, b: Vec3, t: number): Vec3 => add(a, multiply(subtract(b, a), t));
-export const round = (v: Vector3): Vector3 => v.map(Math.round) as Vector3;
+export const round = (v: Vec3): Vec3 => v.map(Math.round) as Vec3;

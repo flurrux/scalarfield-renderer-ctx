@@ -1,10 +1,13 @@
 {
   "name": "@flurrux/simple-scalar-field-renderer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "visualizing scalar fields with canvas2d",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel ./dev/index.html"
+    "start": "parcel ./dev/index.html",
+	"build:js": "esbuild ./src/index.ts --bundle --outfile=./dist/index.js",
+    "build:types": "tsc ./src/index.ts --declaration --emitDeclarationOnly --outFile ./dist/types.d.ts",
+	"build": "npm run build:js && npm run build:types"
   },
   "author": "Christian Hoffmann <christianhoffmann@outlook.com>",
   "license": "ISC",
@@ -12,11 +15,15 @@
     "@flurrux/simple-ctx-3d-engine": "^1.0.2",
     "fp-ts": "^2.10.4"
   },
+  "source": "./src/index.ts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "/src", "/lib"
+    "/dist"
   ],
   "devDependencies": {
     "cssnano": "^4.1.10",
+    "esbuild": "^0.14.14",
     "parcel": "^2.0.1",
     "typescript": "^3.9.9"
   }

@@ -1,6 +1,6 @@
-import { Morphism, Transformation, Vector2, Vector3 } from '../lib/types';
+import { Morphism, Transformation, Vector3 } from '../lib/types';
 import { GridField, ScalarField } from './grid-field';
-import { setupSimpleCtx3dScene, RenderFuncArgs } from '@flurrux/simple-ctx-3d-engine/src/scene-setup';
+import { setupSimpleCtx3dScene } from '@flurrux/simple-ctx-3d-engine/src/scene-setup';
 import { renderHeightMap, Shape } from './rendering/heightmap';
 import { OrbitCamera } from '@flurrux/simple-ctx-3d-engine/src/camera/orbit-camera';
 import { normalize, vec3ToColor } from './util';

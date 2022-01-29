@@ -1,5 +1,3 @@
-import { map } from "fp-ts/lib/Array";
-import { pipe } from "fp-ts/lib/function";
 import { Vector2 } from "../lib/types";
 import * as Vec2 from "../lib/vec2";
 

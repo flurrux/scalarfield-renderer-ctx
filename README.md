@@ -1,6 +1,15 @@
 
 # scalar-field-renderer  
 
+a humble little library meant for rendering 3D scalar fields using [Canvas2D](https://developer.mozilla.org/de/docs/Web/API/CanvasRenderingContext2D) only.  
+
+in a previous project, i wrote a simple [voxel renderer](https://github.com/flurrux/canvas-voxel-game) and noticed the same principles could be used to render heightmaps as well.  
+
+unfortunately, it has the same downsides, namely poor performance for a large number of rendered cells.  
+why do this then?  
+well i simply love the quick setup and debug capabilities of Canvas2D, plus drawing thick lines is [that much simpler](https://mattdesl.svbtle.com/drawing-lines-is-hard).  
+
+
 ![static, wavy heightmap in 3D](./demo-gifs/static-field-1.gif)
 
 ```

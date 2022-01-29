@@ -1,0 +1,7 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"emitDeclarationOnly": true,
+		"declaration": true,
+	}
+}
