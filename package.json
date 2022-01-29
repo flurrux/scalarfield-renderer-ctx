@@ -1,5 +1,5 @@
 {
-  "name": "@flurrux/simple-scalar-field-renderer",
+  "name": "@flurrux/scalarfield-renderer-ctx",
   "version": "1.0.2",
   "description": "visualizing scalar fields with canvas2d",
   "scripts": {
