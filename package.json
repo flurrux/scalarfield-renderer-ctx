@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel ./dev/index.html",
-	"build:js": "esbuild ./src/index.ts --bundle --minify --outfile=./dist/index.js",
+	"build:js": "esbuild ./src/index.ts --bundle --minify --format=esm --outfile=./dist/index.js",
     "build:types": "tsc ./src/index.ts --declaration --emitDeclarationOnly --outFile ./dist/types.d.ts",
 	"build": "npm run build:js && npm run build:types"
   },
