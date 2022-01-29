@@ -13,17 +13,17 @@ well i simply love the quick setup and debug capabilities of Canvas2D, plus draw
 ![static, wavy heightmap in 3D](./demo-gifs/static-field-1.gif)
 
 ```
-import { setupHeightMapScene, centerGridField } from "@flurrux/simple-scalar-field-renderer";
+import { setupHeightMapScene, centerGridField } from "@flurrux/scalarfield-renderer-ctx";
 
 const sceneController = setupHeightMapScene({
-  gridField: center({ 
+  gridField: centerGridField({ 
     position: [0, 0], 
     cellSize: 0.1, 
     size: [30, 30]
   }), 
   heightMap: ([x, y]) => {
     const f = 2;
-    return Math.sin(p[0] * f) * Math.sin(p[1] * f) * 0.35;
+    return Math.sin(x * f) * Math.sin(y * f) * 0.35;
   },
   shape: "triangle"
 });
@@ -47,7 +47,7 @@ type HeightMapScene = {
 
 ```
 
-import { startLoop } from "@flurrux/simple-scalar-field-renderer";
+import { startLoop } from "@flurrux/scalarfield-renderer-ctx";
 
 startLoop(
   (args) => {
